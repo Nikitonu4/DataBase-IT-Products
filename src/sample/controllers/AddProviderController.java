@@ -47,9 +47,9 @@ public class AddProviderController {
                 DbManager db;
                 String providerName = provider_name.getText();
                 db = new DbManager();
-                boolean flag = false;
                 Providers providers = db.getProviders();
                 ResultSet res = providers.selectAll();
+                boolean flag = false;
                 if (providerName == null || providerName == "") {
                     provider_name.setStyle("-fx-border-color: red;");
                     error.setText("Производитель пуст");

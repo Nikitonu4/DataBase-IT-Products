@@ -38,6 +38,9 @@
                </cursor></ComboBox>
             <TextField fx:id="ram_addTable" focusTraversable="false" layoutX="127.0" layoutY="387.0" prefHeight="32.0" prefWidth="252.0" promptText="Оперативная память" />
             <Button fx:id="close_button" layoutX="127.0" layoutY="527.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="33.0" prefWidth="252.0" style="-fx-background-color: #ef6101#ef6101;" text="НАЗАД" />
+            <Label layoutX="385.0" layoutY="278.0" text="рублей" textFill="WHITE" />
+            <Label layoutX="385.0" layoutY="317.0" text="Мб" textFill="WHITE" />
+            <Label layoutX="385.0" layoutY="395.0" text="Мб" textFill="WHITE" />
               </children>
          <cursor>
             <Cursor fx:constant="DEFAULT" />

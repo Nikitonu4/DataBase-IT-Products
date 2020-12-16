@@ -32,7 +32,7 @@ public class Products extends BaseTable implements TableOperations{
                 "    REFERENCES public.videocard_list (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
     }
 
-
+//TODO ДОБАВИТЬ ВЕРСИЮ windows
     @Override
     public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {
         super.executeSqlStatement(sql);

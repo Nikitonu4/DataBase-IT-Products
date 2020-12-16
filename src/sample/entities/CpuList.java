@@ -1,5 +1,6 @@
 package sample.entities;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CpuList extends BaseTable implements TableOperations {
@@ -20,7 +21,18 @@ public class CpuList extends BaseTable implements TableOperations {
     }
     @Override
     public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {
+    }
 
+    public void addCpu(String name, String manufacturer, int year, double frequency, double price) throws SQLException, ClassNotFoundException {
+        reopenConnection();
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO cpu_list (name, manufacturer, year, frequency, price) VALUES (?, ?, ?, ?, ?);");
+        ps.setString(1, name);
+        ps.setString(2, manufacturer);
+        ps.setInt(3, year);
+        ps.setDouble(4, frequency);
+        ps.setDouble(5, price);
+        ps.executeUpdate();
+        System.out.println("Процессор добавлена!");
     }
 
 //    @Override
