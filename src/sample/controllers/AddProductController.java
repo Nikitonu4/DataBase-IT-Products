@@ -23,12 +23,10 @@ public class AddProductController extends Controller{
     private CpuList cpuList;
     private Products products;
     private Providers providers;
-    private VideocardsList videocardsList;
     ResultSet res;
     ObservableList<Provider> providers_list = FXCollections.observableArrayList();
     ObservableList<Category> categories_list = FXCollections.observableArrayList();
     ObservableList<Cpu> cpu_list = FXCollections.observableArrayList();
-    ObservableList<Videocard> videocard_list = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -61,7 +59,7 @@ public class AddProductController extends Controller{
     private ComboBox<Cpu> cpu_addTable;
 
     @FXML
-    private ComboBox<Videocard> videocard_addTable;
+    private TextField videocard_addTable;
 
     @FXML
     private TextField ram_addTable;
@@ -83,11 +81,9 @@ public class AddProductController extends Controller{
         this.cpuList = db.getCpuList();
         this.products = db.getProducts();
         this.providers = db.getProviders();
-        this.videocardsList = db.getVideocardsList();
         selectProviders();
         selectCategories();
         selectCpu();
-        selectVideocard();
 
         addButton_addTable.setOnAction(event -> {
             //TODO проверки!!!!!
@@ -99,9 +95,9 @@ public class AddProductController extends Controller{
             double memory = Double.parseDouble(memory_addTable.getText());
             long cpuId = cpu_addTable.getValue().getId();
             int ram = Integer.parseInt(ram_addTable.getText());
-            long videocardId = videocard_addTable.getValue().getId();
+            int videocard = Integer.parseInt(videocard_addTable.getText());
             try {
-                products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocardId);
+                products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocard);
                 closeButtonAction();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -206,38 +202,4 @@ public class AddProductController extends Controller{
             }
         });
     }
-
-    void selectVideocard() throws SQLException, ClassNotFoundException {
-        res = videocardsList.selectAll();
-        while (res.next()) {
-            videocard_list.add(new Videocard(res.getInt("id"),
-                    res.getString("manufacturer"),
-                    res.getString("year"),
-                    res.getString("model"),
-                    res.getString("ram"),
-                    res.getString("price")));
-        }
-        videocard_addTable.setItems(videocard_list);
-        videocard_addTable.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Videocard obj) {
-                return obj == null ? "" : obj.toString();
-            }
-
-            @Override
-            public Videocard fromString(String s) {
-                if (s == null || s.isEmpty()) {
-                    return null;
-                }
-                for (Videocard obj : videocard_addTable.getItems()) {
-                    if (obj.toString().equalsIgnoreCase(s)) {
-                        return obj;
-                    }
-                }
-                return null;
-            }
-        });
-    }
-
-
 }

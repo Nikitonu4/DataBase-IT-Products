@@ -27,7 +27,6 @@
                         <MenuItem fx:id="addCategory_button" mnemonicParsing="false" text="Добавить категорию" />
                         <MenuItem fx:id="addProvider_button" mnemonicParsing="false" text="Добавить производителя" />
                         <MenuItem fx:id="addCpu_button" mnemonicParsing="false" text="Добавить процессор" />
-                        <MenuItem fx:id="addVideocard_button" mnemonicParsing="false" text="Добавить видеокарту" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Изменить">

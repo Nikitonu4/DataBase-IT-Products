@@ -4,7 +4,7 @@ import sample.entities.*;
 import java.sql.*;
 
 public class DbManager {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/itProducts1";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/itProducts";
     private static final String DB_User = "postgres";
     private static final String DB_Password = "1111";
     private static final String DB_Driver = "org.postgresql.Driver";
@@ -18,7 +18,6 @@ public class DbManager {
     private CpuList cpuList;
     private Products products;
     private Providers providers;
-    private VideocardsList videocardsList;
 
     public Categories getCategories() {
         return categories;
@@ -40,10 +39,6 @@ public class DbManager {
         return providers;
     }
 
-    public VideocardsList getVideocardsList() {
-        return videocardsList;
-    }
-
     /** Подключение к БД */
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         return DriverManager.getConnection(DB_URL, DB_User, DB_Password);
@@ -56,25 +51,16 @@ public class DbManager {
         cpuList = new CpuList();
         products = new Products();
         providers = new Providers();
-        videocardsList = new VideocardsList();
     }
 
     public void createTablesAndForeignKeys() throws SQLException, ClassNotFoundException {
         //создание таблиц
         categories.createTable();
         cpuList.createTable();
-        videocardsList.createTable();
         computers.createTable();
         providers.createTable();
         products.createTable();
     }
-//    public void addProviders(String name) throws Exception{
-//        connection = getConnection();
-//        String addStr = "INSERT INTO " + DbConst.PROVIDERS_TABLE +"(\"name\")" + "VALUES (?)";
-//        PreparedStatement ps = connection.prepareStatement(addStr);
-//        ps.setString(1, name);
-//        ps.executeUpdate();
-//    }
 
 //
 //    /** Добавление в таблицу информации */

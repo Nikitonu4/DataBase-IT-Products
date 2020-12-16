@@ -15,8 +15,7 @@ public class Computers extends BaseTable implements TableOperations {
                 "    cpu integer NOT NULL," +
                 "    videocard integer NOT NULL," +
                 "    ram integer NOT NULL," +
-                " CONSTRAINT fk_cpu_pc FOREIGN KEY (cpu) REFERENCES public.cpu_list (id) MATCH SIMPLE," +
-                "    CONSTRAINT fk_videocard_pc FOREIGN KEY (videocard) REFERENCES public.videocard_list (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
+                " CONSTRAINT fk_cpu_pc FOREIGN KEY (cpu) REFERENCES public.cpu_list (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
     }
     @Override
     public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {

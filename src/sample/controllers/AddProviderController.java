@@ -13,8 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddProviderController {
-
+public class AddProviderController extends Controller {
 
     @FXML
     private ResourceBundle resources;
@@ -64,6 +63,7 @@ public class AddProviderController {
                     if (!flag) {
                         providers.addProvider(providerName);
                         closeButtonAction();
+                        newWindow("complete");
                     }
                 }
             } catch (SQLException throwables) {

@@ -27,9 +27,7 @@ public class Products extends BaseTable implements TableOperations{
                 "CONSTRAINT fk_cpu_pc FOREIGN KEY (cpu)" +
                 "    REFERENCES public.cpu_list (id) MATCH SIMPLE," +
                 "    CONSTRAINT fk_provider FOREIGN KEY (provider)" +
-                "    REFERENCES public.providers (id) MATCH SIMPLE," +
-                "    CONSTRAINT fk_videocard FOREIGN KEY (videocard)" +
-                "    REFERENCES public.videocard_list (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
+                "    REFERENCES public.providers (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
     }
 
 //TODO ДОБАВИТЬ ВЕРСИЮ windows
@@ -38,7 +36,7 @@ public class Products extends BaseTable implements TableOperations{
         super.executeSqlStatement(sql);
     }
 
-    public void addProduct(String name, long providerId, long categoryId, String disk, double price, double memory, long cpuId, int ram, long videocardId) throws SQLException, ClassNotFoundException {
+    public void addProduct(String name, long providerId, long categoryId, String disk, double price, double memory, long cpuId, int ram, int videocard) throws SQLException, ClassNotFoundException {
         reopenConnection();
         String sql = "INSERT INTO products (name, provider, category, disk, price, memory, cpu, ram, videocard) VALUES (?,?,?,?,?,?,?,?,?);";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -50,12 +48,8 @@ public class Products extends BaseTable implements TableOperations{
         ps.setDouble(6, memory);
         ps.setLong(7, cpuId);
         ps.setInt(8, ram);
-        ps.setLong(9, videocardId);
+        ps.setInt(9, videocard);
         ps.executeUpdate();
         System.out.println("Добавлено!");
     }
-//    @Override
-//    public ResultSet selectProducts() throws SQLException, ClassNotFoundException {
-//        return super.select_all_products(tableName);
-//    }
 }

@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddCategoryController {
+public class AddCategoryController extends Controller {
 
 
     @FXML
@@ -64,6 +64,7 @@ public class AddCategoryController {
                     if (!flag) {
                         categories.addCategory(categoryName);
                         closeButtonAction();
+                        newWindow("complete");
                     }
                 }
             } catch (SQLException throwables) {

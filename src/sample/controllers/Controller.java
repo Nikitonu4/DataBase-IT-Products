@@ -30,7 +30,6 @@ public class Controller {
     private CpuList cpuList;
     private Products products;
     private Providers providers;
-    private VideocardsList videocardsList;
     ObservableList<Product> products_list_view = FXCollections.observableArrayList();
 
     @FXML
@@ -73,9 +72,6 @@ public class Controller {
     private MenuItem addCpu_button;
 
     @FXML
-    private MenuItem addVideocard_button;
-
-    @FXML
     void initialize() throws Exception {
         db = new DbManager();
         db.createTablesAndForeignKeys();
@@ -84,7 +80,6 @@ public class Controller {
         this.cpuList = db.getCpuList();
         this.products = db.getProducts();
         this.providers = db.getProviders();
-        this.videocardsList = db.getVideocardsList();
         updateMainTable();
 
         update_button.setOnAction(event -> {
@@ -113,7 +108,7 @@ public class Controller {
         });
     }
 
-    private void newWindow(String windowName){
+    protected void newWindow(String windowName){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../view/"+windowName+".fxml"));
         try {

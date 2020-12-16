@@ -95,7 +95,7 @@ public class AddCpuController extends Controller {
 
                 try {
                     price = Double.parseDouble(price_addCpu.getText());
-                    if (price <= 0) {
+                    if (price < 0) {
                         year_addCpu.setStyle("-fx-border-color: red;");
                         error.setText("Некорректная цена");
                         flag = true;
@@ -126,6 +126,7 @@ public class AddCpuController extends Controller {
                 if (!flag) {
                     cpuList.addCpu(name, manufacturer, year, frequency, price);
                     closeButtonAction();
+                    newWindow("complete");
                 }
             } catch (SQLException throwables) {
                 error.setText("ОШИБКА В ДАННЫХ");
