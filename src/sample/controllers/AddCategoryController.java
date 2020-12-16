@@ -55,7 +55,7 @@ public class AddCategoryController {
                     error.setText("Категория пуста");
                 } else {
                     while (res.next()) {
-                        if (res.getString("name").equals(categoryName)) {
+                        if (res.getString("name").equalsIgnoreCase(categoryName)) {
                             category_name.setStyle("-fx-border-color: red;");
                             error.setText("Такая категория уже есть");
                             flag = true;

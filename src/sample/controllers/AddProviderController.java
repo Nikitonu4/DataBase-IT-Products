@@ -55,7 +55,7 @@ public class AddProviderController {
                     error.setText("Производитель пуст");
                 } else {
                     while (res.next()) {
-                        if (res.getString("name").equals(providerName)) {
+                        if (res.getString("name").equalsIgnoreCase(providerName)) {
                             provider_name.setStyle("-fx-border-color: red;");
                             error.setText("Такой производитель уже есть");
                             flag = true;
