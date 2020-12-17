@@ -16,7 +16,7 @@
                   <TextField fx:id="provider_name" focusTraversable="false" layoutX="126.0" layoutY="136.0" prefHeight="32.0" prefWidth="252.0" promptText="Название" />
                   <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="221.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                       <image>
-                          <Image url="@../images/dbweb.png" />
+                          <Image url="@../images/provider.png" />
                       </image>
                   </ImageView>
                   <Button fx:id="add_provider_button" layoutX="126.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="ДОБАВИТЬ" />

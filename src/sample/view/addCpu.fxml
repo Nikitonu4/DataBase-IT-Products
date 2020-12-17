@@ -18,7 +18,7 @@
                   <TextField fx:id="frequency_addCpu" focusTraversable="false" layoutX="127.0" layoutY="230.0" prefHeight="32.0" prefWidth="252.0" promptText="Частоты" />
                   <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                       <image>
-                          <Image url="@../images/dbweb.png" />
+                          <Image url="@../images/cpu.png" />
                       </image>
                   </ImageView>
                   <Button fx:id="addButton_addCpu" layoutX="127.0" layoutY="313.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="ДОБАВИТЬ" />

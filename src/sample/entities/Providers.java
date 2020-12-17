@@ -29,20 +29,15 @@ public class Providers extends BaseTable implements TableOperations {
         ResultSet result = ps.executeQuery();
         long providerId = 0;
         while(result.next()){
-            providerId = result.getInt("id");
+            providerId = result.getLong("id");
         }
         return providerId;
     }
 
-//    @Override
-//    public ResultSet selectProducts() throws SQLException, ClassNotFoundException {
-//        return super.select_all_products(tableName);
-//    }
-
-    public String findNamebyId(int id) throws SQLException, ClassNotFoundException {
+    public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM providers WHERE \"id\" = ?;");
-        ps.setInt(1,id);
+        ps.setLong(1,id);
         ResultSet result = ps.executeQuery();
         String provider = null;
         while(result.next()){
@@ -56,6 +51,7 @@ public class Providers extends BaseTable implements TableOperations {
         PreparedStatement ps = connection.prepareStatement("INSERT INTO providers (name) VALUES (?);");
         ps.setString(1, name);
         ps.executeUpdate();
+        connection.close();
         System.out.println("Производитель добавлен!");
     }
 }

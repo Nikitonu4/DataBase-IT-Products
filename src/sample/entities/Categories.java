@@ -29,16 +29,16 @@ public class Categories extends BaseTable implements TableOperations{
         ResultSet result = ps.executeQuery();
         long categoryId = 0;
         while(result.next()){
-            categoryId = result.getInt("id");
+            categoryId = result.getLong("id");
         }
         return categoryId;
     }
 
 
-    public String findNamebyId(int id) throws SQLException, ClassNotFoundException {
+    public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM categories WHERE \"id\" = ?;");
-        ps.setInt(1,id);
+        ps.setLong(1,id);
         ResultSet result = ps.executeQuery();
         String category = null;
         while(result.next()){
@@ -52,6 +52,7 @@ public class Categories extends BaseTable implements TableOperations{
         PreparedStatement ps = connection.prepareStatement("INSERT INTO categories (name) VALUES (?);");
         ps.setString(1, name);
         ps.executeUpdate();
+        connection.close();
         System.out.println("Категория добавлена!");
     }
 

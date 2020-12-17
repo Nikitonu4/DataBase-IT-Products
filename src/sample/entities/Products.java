@@ -1,6 +1,7 @@
 package sample.entities;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Products extends BaseTable implements TableOperations{
@@ -50,6 +51,32 @@ public class Products extends BaseTable implements TableOperations{
         ps.setInt(8, ram);
         ps.setInt(9, videocard);
         ps.executeUpdate();
+        connection.close();
         System.out.println("Добавлено!");
     }
+
+    public long findIdByName(String name) throws  SQLException, ClassNotFoundException{
+        reopenConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE \"name\" = ?;");
+        ps.setString(1,name);
+        ResultSet result = ps.executeQuery();
+        long providerId = 0;
+        while(result.next()){
+            providerId = result.getLong("id");
+        }
+        return providerId;
+    }
+
+    public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
+        reopenConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE \"id\" = ?;");
+        ps.setLong(1, id);
+        ResultSet result = ps.executeQuery();
+        String provider = null;
+        while(result.next()){
+            provider = result.getString("name");
+        }
+        return provider;
+    }
+
 }

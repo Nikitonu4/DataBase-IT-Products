@@ -1,6 +1,7 @@
 package sample.entities;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CpuList extends BaseTable implements TableOperations {
@@ -32,7 +33,39 @@ public class CpuList extends BaseTable implements TableOperations {
         ps.setDouble(4, frequency);
         ps.setDouble(5, price);
         ps.executeUpdate();
+        connection.close();
+
         System.out.println("Процессор добавлена!");
+    }
+
+    public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
+        reopenConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM cpu_list WHERE \"id\" = ?;");
+        ps.setLong(1, id);
+        ResultSet result = ps.executeQuery();
+        String cpuName = null;
+        while(result.next()){
+            cpuName = result.getString("name");
+        }
+        return cpuName;
+    }
+
+    public String allSpecificial(long id) throws SQLException, ClassNotFoundException {
+        reopenConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM cpu_list WHERE \"id\" = ?;");
+        ps.setLong(1, id);
+        ResultSet result = ps.executeQuery();
+        String cpuManufacturer = null;
+        String cpuName = null;
+        String cpuFrequency = null;
+
+        while(result.next()){
+            cpuManufacturer = result.getString("manufacturer");
+            cpuName = result.getString("name");
+            cpuFrequency = result.getString("frequency");
+
+        }
+        return cpuManufacturer + " " + cpuName + " " + cpuFrequency + " Ггц";
     }
 
 //    @Override

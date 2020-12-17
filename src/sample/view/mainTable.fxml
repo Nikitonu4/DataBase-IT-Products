@@ -63,15 +63,15 @@
          <children>
             <Pane prefHeight="432.0" prefWidth="336.0">
                <children>
-                  <TextField fx:id="txtFirstname" layoutX="83.0" layoutY="158.0" prefHeight="32.0" prefWidth="252.0" promptText="Название" />
-                  <TextField fx:id="txtFirstname1" layoutX="83.0" layoutY="208.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
-                  <TextField fx:id="txtFirstname11" layoutX="83.0" layoutY="257.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
+                  <TextField fx:id="name_search" layoutX="83.0" layoutY="158.0" prefHeight="32.0" prefWidth="252.0" promptText="Название" />
+                  <TextField fx:id="provider_search" layoutX="83.0" layoutY="208.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
+                  <TextField fx:id="category_search" layoutX="83.0" layoutY="257.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
                   <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="179.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                      <image>
                         <Image url="@../images/dbweb.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="80.0" layoutY="333.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="НАЙТИ" />
+                  <Button fx:id="find_button" layoutX="80.0" layoutY="333.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="НАЙТИ" />
                   <Label layoutX="64.0" layoutY="110.0" text="БИБЛИОТЕКА ПРОГРАММНЫХ ПРОДУКТОВ" textFill="WHITE" />
                </children>
             </Pane>

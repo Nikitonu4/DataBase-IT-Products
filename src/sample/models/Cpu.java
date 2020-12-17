@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class Cpu extends CpuList {
 
-    private int id;
+    private long id;
     private String name;
     private String manufacturer;
     private String year;
     private String frequency;
     private String price;
 
-    public Cpu(int id, String name, String manufacturer, String year, String frequency, String price) throws SQLException, ClassNotFoundException {
+    public Cpu(long id, String name, String manufacturer, String year, String frequency, String price) throws SQLException, ClassNotFoundException {
         this.id = id;
         this.name = name;
         this.manufacturer = manufacturer;
@@ -22,11 +22,11 @@ public class Cpu extends CpuList {
         this.price = price;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

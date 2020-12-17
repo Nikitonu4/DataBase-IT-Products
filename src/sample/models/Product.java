@@ -12,20 +12,22 @@ public class Product extends Products {
     private String category;
     private String disk;
     private String price;
-    private String memory_need;
+    private String memory;
     private String cpu;
     private String ram;
+    private String videocard;
 
-    public Product(String id, String name, String provider, String category, String disk, String price, String memory_need, String cpu, String ram) throws SQLException, ClassNotFoundException {
+    public Product(String id, String name, String provider, String category, String disk, String price, String memory, String cpu, String ram, String videocard) throws SQLException, ClassNotFoundException {
         this.id = id;
         this.name = name;
         this.provider = provider;
         this.category = category;
         this.disk = disk;
         this.price = price;
-        this.memory_need = memory_need;
+        this.memory = memory;
         this.cpu = cpu;
         this.ram = ram;
+        this.videocard = videocard;
     }
 
     public Product(String name, String provider, String category, String disk, String price) throws SQLException, ClassNotFoundException {
@@ -34,6 +36,14 @@ public class Product extends Products {
         this.category = category;
         this.disk = disk;
         this.price = price;
+    }
+
+    public String getVideocard() {
+        return videocard;
+    }
+
+    public void setVideocard(String videocard) {
+        this.videocard = videocard;
     }
 
     public String getId() {
@@ -85,12 +95,12 @@ public class Product extends Products {
         this.price = price;
     }
 
-    public String getMemory_need() {
-        return memory_need;
+    public String getMemory() {
+        return memory;
     }
 
-    public void setMemory_need(String memory_need) {
-        this.memory_need = memory_need;
+    public void setMemory(String memory) {
+        this.memory = memory;
     }
 
     public String getCpu() {

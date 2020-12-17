@@ -18,7 +18,7 @@
                   <TextField fx:id="price_addTable" focusTraversable="false" layoutX="127.0" layoutY="270.0" prefHeight="32.0" prefWidth="252.0" promptText="Цена" />
                   <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                       <image>
-                          <Image url="@../images/dbweb.png" />
+                          <Image url="@../images/product.png" />
                       </image>
                   </ImageView>
                   <Button fx:id="addButton_addTable" layoutX="127.0" layoutY="480.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="ДОБАВИТЬ" />
@@ -39,6 +39,7 @@
             <Label layoutX="385.0" layoutY="395.0" text="Мб" textFill="WHITE" />
             <TextField fx:id="videocard_addTable" focusTraversable="false" layoutX="127.0" layoutY="428.0" prefHeight="32.0" prefWidth="252.0" promptText="Видеопамять" />
             <Label layoutX="385.0" layoutY="436.0" text="Мб" textFill="WHITE" />
+            <Label fx:id="error" contentDisplay="CENTER" layoutX="128.0" layoutY="569.0" prefHeight="17.0" prefWidth="356.0" textAlignment="CENTER" textFill="WHITE" />
               </children>
          <cursor>
             <Cursor fx:constant="DEFAULT" />

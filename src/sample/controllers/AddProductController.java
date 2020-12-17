@@ -5,18 +5,22 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import sample.entities.*;
-import sample.models.*;
+import sample.models.Category;
+import sample.models.Cpu;
+import sample.models.DbManager;
+import sample.models.Provider;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddProductController extends Controller{
+public class AddProductController extends Controller {
 
     private Categories categories;
     private Computers computers;
@@ -27,6 +31,7 @@ public class AddProductController extends Controller{
     ObservableList<Provider> providers_list = FXCollections.observableArrayList();
     ObservableList<Category> categories_list = FXCollections.observableArrayList();
     ObservableList<Cpu> cpu_list = FXCollections.observableArrayList();
+    boolean flag = false;
 
     @FXML
     private ResourceBundle resources;
@@ -68,7 +73,10 @@ public class AddProductController extends Controller{
     private Button close_button;
 
     @FXML
-    void closeButtonAction(){
+    private Label error;
+
+    @FXML
+    void closeButtonAction() {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
     }
@@ -87,37 +95,120 @@ public class AddProductController extends Controller{
 
         addButton_addTable.setOnAction(event -> {
             //TODO проверки!!!!!
+            double price = 0;
+            double memory = 0;
+            int ram = 0;
+            int videocard = 0;
             String name = name_addTable.getText();
-            long providerId = provider_addTable.getValue().getId();
-            long categoryId = category_addTable.getValue().getId();
             String disk = disk_addTable.getText();
-            double price = Double.parseDouble(price_addTable.getText());
-            double memory = Double.parseDouble(memory_addTable.getText());
-            long cpuId = cpu_addTable.getValue().getId();
-            int ram = Integer.parseInt(ram_addTable.getText());
-            int videocard = Integer.parseInt(videocard_addTable.getText());
-            try {
-                products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocard);
-                closeButtonAction();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            flag = false;
+            if (name == null || name == "") {
+                name_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Имя неккоректно");
+                flag = true;
+            } else {
+                try {
+                    res = products.selectAll();
+                    while (res.next()) {
+                        if (res.getString("name").equalsIgnoreCase(name)) {
+                            name_addTable.setStyle("-fx-border-color: red;");
+                            error.setText("Такой продукт уже есть");
+                            flag = true;
+                        }
+                    }
+                }catch (SQLException | ClassNotFoundException throwables) {
+                    error.setText("Ошибка в имени продукта");
+                    throwables.printStackTrace();
+                }
+//                name_addTable.setStyle("-fx-border-color: none;");
+//                flag = false;
             }
-//            try {
-//                updateMainTable();
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
+            if (disk == null || disk == "") {
+                disk_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Месторасположение на диске неккоректно");
+                flag = true;
+            } else if (disk.length() != 1) {
+                disk_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Диск должен быть из одной буквы(A, B, C, D ...)");
+                flag = true;
+            }
+
+            try {
+                price = Double.parseDouble(price_addTable.getText());
+
+            } catch (NumberFormatException e) {
+                price_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Цена неккоректна");
+                flag = true;
+            }
+
+            try {
+                memory = Double.parseDouble(memory_addTable.getText());
+                if (memory <= 0) {
+                    memory_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Необходимая память должна быть больше 0");
+                    flag = true;
+                }
+            } catch (NumberFormatException e) {
+                memory_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Необходимая память неккоректна");
+                flag = true;
+            }
+
+            try {
+                ram = Integer.parseInt(ram_addTable.getText());
+                if (ram <= 0) {
+                    ram_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Оперативная память должна быть больше 0");
+                    flag = true;
+                }
+            } catch (NumberFormatException e) {
+                ram_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Оперативная память неккоректна");
+                flag = true;
+            }
+
+            try {
+                videocard = Integer.parseInt(videocard_addTable.getText());
+                if (videocard <= 0) {
+                    videocard_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Видеопамять должна быть больше 0");
+                    flag = true;
+                }
+            } catch (NumberFormatException e) {
+                videocard_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Видеопамять неккоректна");
+                flag = true;
+            }
+
+            if (!flag) {
+                long providerId = provider_addTable.getValue().getId();
+                long categoryId = category_addTable.getValue().getId();
+                long cpuId = cpu_addTable.getValue().getId();
+
+                try {
+                    products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocard);
+                    closeButtonAction();
+                    newWindow("complete");
+//                    updateMainTable();
+
+                } catch (SQLException throwables) {
+                    error.setText("Ошибка ввода");
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    error.setText("Ошибка ввода");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
     void selectProviders() throws SQLException, ClassNotFoundException {
         res = providers.selectAll();
         while (res.next()) {
-            providers_list.add(new Provider(res.getInt("id"),
+            providers_list.add(new Provider(res.getLong("id"),
                     res.getString("name")));
         }
 
@@ -131,6 +222,9 @@ public class AddProductController extends Controller{
             @Override
             public Provider fromString(String s) {
                 if (s == null || s.isEmpty()) {
+                    flag = true;
+                    provider_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Выберите производителя");
                     return null;
                 }
                 for (Provider obj : provider_addTable.getItems()) {
@@ -138,6 +232,7 @@ public class AddProductController extends Controller{
                         return obj;
                     }
                 }
+                flag = true;
                 return null;
             }
         });
@@ -146,7 +241,7 @@ public class AddProductController extends Controller{
     void selectCategories() throws SQLException, ClassNotFoundException {
         res = categories.selectAll();
         while (res.next()) {
-            categories_list.add(new Category(res.getInt("id"),
+            categories_list.add(new Category(res.getLong("id"),
                     res.getString("name")));
         }
         category_addTable.setItems(categories_list);
@@ -159,6 +254,9 @@ public class AddProductController extends Controller{
             @Override
             public Category fromString(String s) {
                 if (s == null || s.isEmpty()) {
+                    flag = true;
+                    category_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Выберите категорию");
                     return null;
                 }
                 for (Category obj : category_addTable.getItems()) {
@@ -166,6 +264,7 @@ public class AddProductController extends Controller{
                         return obj;
                     }
                 }
+                flag = true;
                 return null;
             }
         });
@@ -174,7 +273,7 @@ public class AddProductController extends Controller{
     void selectCpu() throws SQLException, ClassNotFoundException {
         res = cpuList.selectAll();
         while (res.next()) {
-            cpu_list.add(new Cpu(res.getInt("id"),
+            cpu_list.add(new Cpu(res.getLong("id"),
                     res.getString("name"),
                     res.getString("manufacturer"),
                     res.getString("year"),
@@ -191,6 +290,9 @@ public class AddProductController extends Controller{
             @Override
             public Cpu fromString(String s) {
                 if (s == null || s.isEmpty()) {
+                    flag = true;
+                    cpu_addTable.setStyle("-fx-border-color: red;");
+                    error.setText("Выберите минимальный процессор");
                     return null;
                 }
                 for (Cpu obj : cpu_addTable.getItems()) {
@@ -198,6 +300,7 @@ public class AddProductController extends Controller{
                         return obj;
                     }
                 }
+                flag = true;
                 return null;
             }
         });
