@@ -9,17 +9,25 @@ public class Cpu extends CpuList {
     private long id;
     private String name;
     private String manufacturer;
-    private String year;
+    private String generation;
     private String frequency;
-    private String price;
+    private String cores;
 
-    public Cpu(long id, String name, String manufacturer, String year, String frequency, String price) throws SQLException, ClassNotFoundException {
+    public Cpu(long id, String name, String manufacturer, String generation, String frequency, String cores) throws SQLException, ClassNotFoundException {
         this.id = id;
         this.name = name;
         this.manufacturer = manufacturer;
-        this.year = year;
+        this.generation = generation;
         this.frequency = frequency;
-        this.price = price;
+        this.cores = cores;
+    }
+
+    public String getCores() {
+        return cores;
+    }
+
+    public void setCores(String cores) {
+        this.cores = cores;
     }
 
     public long getId() {
@@ -46,12 +54,12 @@ public class Cpu extends CpuList {
         this.manufacturer = manufacturer;
     }
 
-    public String getYear() {
-        return year;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
     public String getFrequency() {
@@ -62,13 +70,6 @@ public class Cpu extends CpuList {
         this.frequency = frequency;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
     @Override
     public String toString() {

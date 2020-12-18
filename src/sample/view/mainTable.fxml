@@ -63,9 +63,9 @@
          <children>
             <Pane prefHeight="432.0" prefWidth="336.0">
                <children>
-                  <TextField fx:id="name_search" layoutX="83.0" layoutY="158.0" prefHeight="32.0" prefWidth="252.0" promptText="Название" />
-                  <TextField fx:id="provider_search" layoutX="83.0" layoutY="208.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
-                  <TextField fx:id="category_search" layoutX="83.0" layoutY="257.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
+                  <TextField fx:id="name_search" focusTraversable="false" layoutX="83.0" layoutY="158.0" prefHeight="32.0" prefWidth="252.0" promptText="Название" />
+                  <TextField fx:id="provider_search" focusTraversable="false" layoutX="83.0" layoutY="208.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
+                  <TextField fx:id="category_search" focusTraversable="false" layoutX="83.0" layoutY="257.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
                   <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="179.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                      <image>
                         <Image url="@../images/dbweb.png" />
@@ -82,7 +82,12 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="update_button" layoutX="638.0" layoutY="54.0" mnemonicParsing="false" text="ОБНОВИТЬ " textAlignment="CENTER">
+                  <Button fx:id="update_button" layoutX="759.0" layoutY="38.0" mnemonicParsing="false" text="ОБНОВИТЬ " textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="similar_button" layoutX="426.0" layoutY="38.0" mnemonicParsing="false" onAction="#SimularProducts" text="ПОКАЗАТЬ ПОХОЖИЕ" textAlignment="CENTER">
                      <font>
                         <Font name="Montserrat Regular" size="13.0" />
                      </font>

@@ -39,6 +39,8 @@
             <Label fx:id="ram" layoutX="271.0" layoutY="339.0" prefHeight="17.0" prefWidth="215.0" textFill="#d9dad6" />
             <Label fx:id="videocard" layoutX="220.0" layoutY="366.0" prefHeight="17.0" prefWidth="275.0" textFill="#d9dad6" />
             <Button fx:id="close_button" layoutX="126.0" layoutY="439.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="33.0" prefWidth="252.0" style="-fx-background-color: #ef6101#ef6101;" text="НАЗАД" />
+            <Label layoutX="129.0" layoutY="392.0" prefHeight="17.0" prefWidth="203.0" text="Минимальная версия Windows:" textFill="WHITE" />
+            <Label fx:id="windows" layoutX="338.0" layoutY="392.0" prefHeight="17.0" prefWidth="70.0" textFill="WHITE" />
               </children>
          <cursor>
             <Cursor fx:constant="DEFAULT" />

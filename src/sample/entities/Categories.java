@@ -37,7 +37,7 @@ public class Categories extends BaseTable implements TableOperations{
 
     public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
         reopenConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM categories WHERE \"id\" = ?;");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM categories WHERE \"id\" = ? ORDER BY name ASC;");
         ps.setLong(1,id);
         ResultSet result = ps.executeQuery();
         String category = null;

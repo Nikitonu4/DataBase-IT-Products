@@ -42,7 +42,7 @@ public class BaseTable implements Closeable {
     public ResultSet selectAll() throws SQLException, ClassNotFoundException {
         reopenConnection();
         Statement statement = connection.createStatement();
-        ResultSet res = statement.executeQuery("SELECT * FROM "+ tableName + " ;");
+        ResultSet res = statement.executeQuery("SELECT * FROM "+ tableName + " ORDER BY name ASC;");
         return res;
     }
 

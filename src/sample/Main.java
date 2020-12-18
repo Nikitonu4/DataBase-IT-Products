@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view/mainTable.fxml"));
         DbManager db = new DbManager();
         db.createTablesAndForeignKeys();
-        primaryStage.setTitle("DBFX");
+        primaryStage.setTitle("Библиотека программных продуктов");
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }
@@ -26,3 +26,6 @@ public class Main extends Application {
 }
 //TODO ПРОВЕРИТЬ ВСЕ ПРОВЕРКИ
 //TODO СДЕЛАТЬ КНОПКИ С onAction(а не лямбдой)
+//TODO все перевести в lowercase
+//TODO удаление (если удаляем категорию - спрашивать, удалить ли все продукты, которые содержат категорию)
+//TODO СДЕЛАТЬ ВЕЗДЕ IsEmpty

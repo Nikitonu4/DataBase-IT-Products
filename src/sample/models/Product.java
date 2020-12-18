@@ -16,8 +16,9 @@ public class Product extends Products {
     private String cpu;
     private String ram;
     private String videocard;
+    private String windows;
 
-    public Product(String id, String name, String provider, String category, String disk, String price, String memory, String cpu, String ram, String videocard) throws SQLException, ClassNotFoundException {
+    public Product(String id, String name, String provider, String category, String disk, String price, String memory, String cpu, String ram, String videocard, String windows) throws SQLException, ClassNotFoundException {
         this.id = id;
         this.name = name;
         this.provider = provider;
@@ -28,6 +29,7 @@ public class Product extends Products {
         this.cpu = cpu;
         this.ram = ram;
         this.videocard = videocard;
+        this.windows = windows;
     }
 
     public Product(String name, String provider, String category, String disk, String price) throws SQLException, ClassNotFoundException {
@@ -119,4 +121,11 @@ public class Product extends Products {
         this.ram = ram;
     }
 
+    public String getWindows() {
+        return windows;
+    }
+
+    public void setWindows(String windows) {
+        this.windows = windows;
+    }
 }

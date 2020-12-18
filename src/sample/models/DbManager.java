@@ -62,47 +62,4 @@ public class DbManager {
         products.createTable();
     }
 
-//
-//    /** Добавление в таблицу информации */
-//    public void postTable() throws Exception {
-//        String hello_key = "привет";
-//        String hello_value = "hello";
-//
-//        try {
-//            connection = getConnection();
-//            ps = connection.prepareStatement("INSERT INTO chatbot(our_key, our_value)" +
-//                    "VALUES ('"+hello_key+"','"+hello_value+"')");
-//            ps.executeUpdate();
-//        } catch (Exception e){
-//            System.out.println(e);
-//        } finally {
-//            System.out.println("Таблица заполнена.");
-//        }
-//    }
-//
-//    /** Выбор и вывод данных */
-//    public ArrayList<String> get() throws Exception {
-//        try {
-//            connection = getConnection();
-//            ps = connection.prepareStatement("SELECT our_key, our_value FROM chatbot");
-//            resultSet = ps.executeQuery();
-//
-//            ArrayList<String> array = new ArrayList<>();
-//
-//            while (resultSet.next()) {
-//                System.out.print(resultSet.getString("our_key"));
-//                System.out.print(" ");
-//                System.out.println(resultSet.getString("our_value"));
-//
-//                array.add(resultSet.getString("our_key"));
-//                array.add(resultSet.getString("our_value"));
-//            }
-//            System.out.println("Все записи выбраны!");
-//            return array;
-//
-//        } catch (Exception e){
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
 }

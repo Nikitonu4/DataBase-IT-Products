@@ -27,7 +27,7 @@ public class Controller {
     protected CpuList cpuList;
     protected Products products;
     protected Providers providers;
-    protected ObservableList<Product> products_list_view = FXCollections.observableArrayList();
+    private ObservableList<Product> products_list_view = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -80,32 +80,41 @@ public class Controller {
     @FXML
     private Button find_button;
 
-    public TextField getName_search() {
-        return name_search;
-    }
+    @FXML
+    private Button similar_button;
 
-    public TextField getCategory_search() {
-        return category_search;
-    }
-
-    public TextField getProvider_search() {
-        return provider_search;
-    }
-
-    protected void reOpen() throws SQLException, ClassNotFoundException {
-
-        db = new DbManager();
-        this.categories = db.getCategories();
-        this.computers = db.getComputers();
-        this.cpuList = db.getCpuList();
-        this.products = db.getProducts();
-        this.providers = db.getProviders();
+    @FXML
+    private void SimularProducts() {
+        similar_button.setOnAction(event -> {
+            Product pr = null;
+            pr = products_table.getSelectionModel().getSelectedItem();
+            if (pr != null)
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../view/simularProducts.fxml"));
+                    loader.load();
+                    Parent root = loader.getRoot();
+                    Stage stage = new Stage();
+                    SimularController simc = loader.getController();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                    simc.showSimular(pr);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+        });
     }
 
     @FXML
     void initialize() throws Exception {
         reOpen();
         updateMainTable();
+
         update_button.setOnAction(event -> {
             try {
                 updateMainTable();
@@ -116,9 +125,11 @@ public class Controller {
             }
         });
 
+
         addProduct_button.setOnAction(event -> {
             newWindow("addProduct");
         });
+
         addCategory_button.setOnAction(event -> {
             newWindow("addCategory");
         });
@@ -136,23 +147,20 @@ public class Controller {
             if (name_search.getText().isEmpty()) {
                 name_search.setStyle("-fx-border-color: red;");
                 flag = true;
-            }
-            else {
+            } else {
                 name_search.setStyle("-fx-border-color: none;");
             }
             if (provider_search.getText().isEmpty()) {
                 provider_search.setStyle("-fx-border-color: red;");
                 flag = true;
 
-            }
-            else {
+            } else {
                 provider_search.setStyle("-fx-border-color: none;");
             }
             if (category_search.getText().isEmpty()) {
                 category_search.setStyle("-fx-border-color: red;");
                 flag = true;
-            }
-            else {
+            } else {
                 category_search.setStyle("-fx-border-color: none;");
             }
 
@@ -167,7 +175,7 @@ public class Controller {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setScene(new Scene(root));
                     stage.show();
-                    infoc.info(name_search.getText().trim(), provider_search.getText().trim(), category_search.getText().trim()); // передаем необходимые параметры
+                    infoc.info(name_search.getText().trim(), provider_search.getText().trim(), category_search.getText().trim());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -207,10 +215,10 @@ public class Controller {
         ResultSet selected = products.selectAll();
 
         while (selected.next()) {
-            int provider_id = selected.getInt("provider");
+            long provider_id = selected.getLong("provider");
             String providerName = providers.findNamebyId(provider_id);
 
-            int category_id = selected.getInt("category");
+            long category_id = selected.getLong("category");
             String categoryName = categories.findNamebyId(category_id);
 
             products_list_view.add(new Product(
@@ -223,4 +231,14 @@ public class Controller {
         }
         products_table.setItems(products_list_view);
     }
+
+    protected void reOpen() throws SQLException, ClassNotFoundException {
+        db = new DbManager();
+        this.categories = db.getCategories();
+        this.computers = db.getComputers();
+        this.cpuList = db.getCpuList();
+        this.products = db.getProducts();
+        this.providers = db.getProviders();
+    }
+
 }

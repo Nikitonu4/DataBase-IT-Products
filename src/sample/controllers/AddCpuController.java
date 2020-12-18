@@ -35,16 +35,16 @@ public class AddCpuController extends Controller {
     private ComboBox<String> manufacturer_addCpu;
 
     @FXML
-    private TextField year_addCpu;
-
-    @FXML
-    private TextField price_addCpu;
+    private TextField generation_addCpu;
 
     @FXML
     private Button close_button;
 
     @FXML
     private Label error;
+
+    @FXML
+    private ComboBox<String> cores_addCpu;
 
     @FXML
     void closeButtonAction() {
@@ -54,7 +54,8 @@ public class AddCpuController extends Controller {
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
-        manufacturer_addCpu.getItems().addAll("Intel", "AMD", "IBM");
+        manufacturer_addCpu.getItems().addAll("Intel", "AMD");
+        cores_addCpu.getItems().addAll("1", "2", "4", "6", "8", "10", "12", "14", "16");
         addButton_addCpu.setOnAction(event -> {
             try {
                 DbManager db = new DbManager();
@@ -64,47 +65,35 @@ public class AddCpuController extends Controller {
                 String name = name_addCpu.getText();
                 String manufacturer = manufacturer_addCpu.getValue();
                 boolean flag = false;
-                int year = 0;
-                double price = 0;
+                int generation = 0;
                 double frequency = 0;
+                int cores = Integer.parseInt(cores_addCpu.getValue());
 
                 try {
-                    year = Integer.parseInt(year_addCpu.getText());
-                    if (year < 1971 || year > 2021) {
-                        year_addCpu.setStyle("-fx-border-color: red;");
-                        error.setText("Некорректный год");
+                    generation = Integer.parseInt(generation_addCpu.getText());
+                    if (generation <= 0) {
+                        generation_addCpu.setStyle("-fx-border-color: red;");
+                        error.setText("Некорректное поколение");
                         flag = true;
                     }
                 } catch (NumberFormatException e) {
-                    year_addCpu.setStyle("-fx-border-color: red;");
-                    error.setText("Некорректный год");
+                    generation_addCpu.setStyle("-fx-border-color: red;");
+                    error.setText("Некорректное поколение");
                 }
 
                 try {
                     frequency = Double.parseDouble(frequency_addCpu.getText());
                     if (frequency <= 0 || frequency >= 6) {
-                        year_addCpu.setStyle("-fx-border-color: red;");
+                        frequency_addCpu.setStyle("-fx-border-color: red;");
                         error.setText("Некорректная частота");
                         flag = true;
                     }
                 } catch (NumberFormatException e) {
-                    year_addCpu.setStyle("-fx-border-color: red;");
+                    frequency_addCpu.setStyle("-fx-border-color: red;");
                     error.setText("Некорректная частота");
                     flag = true;
                 }
 
-                try {
-                    price = Double.parseDouble(price_addCpu.getText());
-                    if (price < 0) {
-                        year_addCpu.setStyle("-fx-border-color: red;");
-                        error.setText("Некорректная цена");
-                        flag = true;
-                    }
-                } catch (NumberFormatException e) {
-                    year_addCpu.setStyle("-fx-border-color: red;");
-                    error.setText("Некорректная цена");
-                    flag = true;
-                }
 
                 if (name == null || name == "") {
                     name_addCpu.setStyle("-fx-border-color: red;");
@@ -124,7 +113,7 @@ public class AddCpuController extends Controller {
                     }
                 }
                 if (!flag) {
-                    cpuList.addCpu(name, manufacturer, year, frequency, price);
+                    cpuList.addCpu(name, manufacturer, generation, frequency, cores);
                     closeButtonAction();
                     newWindow("complete");
                 }

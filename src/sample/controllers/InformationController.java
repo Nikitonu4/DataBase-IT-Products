@@ -58,6 +58,9 @@ public class InformationController extends Controller {
     private Label videocard;
 
     @FXML
+    private Label windows;
+
+    @FXML
     void closeButtonAction() {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
@@ -69,7 +72,7 @@ public class InformationController extends Controller {
     }
 
 
-    public void info(String name_search, String provider_search, String category_search) throws SQLException, ClassNotFoundException {
+    protected void info(String name_search, String provider_search, String category_search) throws SQLException, ClassNotFoundException {
         DbManager db = new DbManager();
 
         Products products = db.getProducts();
@@ -110,7 +113,8 @@ public class InformationController extends Controller {
                         res.getString("memory"),
                         res.getString("cpu"),
                         res.getString("ram"),
-                        res.getString("videocard")
+                        res.getString("videocard"),
+                        res.getString("windows")
                 );
             }
         }
@@ -130,6 +134,7 @@ public class InformationController extends Controller {
             cpu.setText(cpuStr);
             ram.setText(product.getRam() + " Мб");
             videocard.setText(product.getVideocard() + " Мб");
+            windows.setText(product.getWindows());
         }
     }
 }

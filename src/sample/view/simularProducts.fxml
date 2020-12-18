@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SimularController">
+   <center>
+      <TableView fx:id="products_table" focusTraversable="false" prefHeight="389.0" prefWidth="956.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="id_simular" prefWidth="43.23688888549805" text="ID" />
+          <TableColumn fx:id="name_simular" prefWidth="100.12335205078125" text="Название" />
+            <TableColumn fx:id="provider_simular" prefWidth="144.8925018310547" text="Производитель" />
+            <TableColumn fx:id="category_simular" prefWidth="122.12335205078125" text="Категория" />
+            <TableColumn fx:id="disk_simular" minWidth="0.0" prefWidth="40.28497314453125" text="Диск" />
+            <TableColumn fx:id="price_simular" minWidth="0.0" prefWidth="66.06204223632812" text="Цена" />
+            <TableColumn fx:id="memory_simular" minWidth="0.0" prefWidth="68.862548828125" text="Память" />
+            <TableColumn fx:id="cpu_simular" minWidth="0.0" prefWidth="131.637451171875" text="Процессор" />
+            <TableColumn fx:id="ram_simular" minWidth="0.0" prefWidth="37.61669921875" text="RAM" />
+            <TableColumn fx:id="videocard_simular" minWidth="0.0" prefWidth="97.2266845703125" text="Видеопамять" />
+            <TableColumn fx:id="windows_simular" maxWidth="84.5" prefWidth="75.74737548828125" text="Windows" />
+        </columns>
+      </TableView>
+   </center>
+   <right>
+      <VBox prefHeight="389.0" prefWidth="35.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <VBox prefHeight="140.0" prefWidth="900.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="close_button" layoutX="353.0" layoutY="56.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="33.0" prefWidth="252.0" style="-fx-background-color: #ef6101#ef6101;" text="НАЗАД" />
+               </children>
+            </Pane>
+         </children></VBox>
+   </bottom>
+   <top>
+      <VBox prefHeight="71.0" prefWidth="900.0" style="-fx-background-color: #045658 #045658;" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <Label text="АНАЛОГИЧНЫЕ ПРОДУКТЫ" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefHeight="389.0" prefWidth="35.0" style="-fx-background-color: #045658 #045658;" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

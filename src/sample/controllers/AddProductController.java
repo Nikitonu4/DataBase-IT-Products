@@ -70,6 +70,9 @@ public class AddProductController extends Controller {
     private TextField ram_addTable;
 
     @FXML
+    private ComboBox<String> windows_addTable;
+
+    @FXML
     private Button close_button;
 
     @FXML
@@ -89,10 +92,10 @@ public class AddProductController extends Controller {
         this.cpuList = db.getCpuList();
         this.products = db.getProducts();
         this.providers = db.getProviders();
-        selectProviders();
+        windows_addTable.getItems().addAll("XP", "7", "8", "10");
         selectCategories();
+        selectProviders();
         selectCpu();
-
         addButton_addTable.setOnAction(event -> {
             //TODO проверки!!!!!
             double price = 0;
@@ -101,7 +104,16 @@ public class AddProductController extends Controller {
             int videocard = 0;
             String name = name_addTable.getText();
             String disk = disk_addTable.getText();
+            String windows = windows_addTable.getValue();
             flag = false;
+
+            if (windows.isEmpty()) {
+                windows_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Минимальная версия Windows некорректна");
+                flag = true;
+            } else
+                name_addTable.setStyle("-fx-border-color: none;");
+
             if (name == null || name == "") {
                 name_addTable.setStyle("-fx-border-color: red;");
                 error.setText("Имя неккоректно");
@@ -112,12 +124,14 @@ public class AddProductController extends Controller {
                     while (res.next()) {
                         if (res.getString("name").equalsIgnoreCase(name)) {
                             name_addTable.setStyle("-fx-border-color: red;");
+                            name_addTable.clear();
                             error.setText("Такой продукт уже есть");
                             flag = true;
                         }
                     }
-                }catch (SQLException | ClassNotFoundException throwables) {
+                } catch (SQLException | ClassNotFoundException throwables) {
                     error.setText("Ошибка в имени продукта");
+                    name_addTable.clear();
                     throwables.printStackTrace();
                 }
 //                name_addTable.setStyle("-fx-border-color: none;");
@@ -126,10 +140,13 @@ public class AddProductController extends Controller {
             if (disk == null || disk == "") {
                 disk_addTable.setStyle("-fx-border-color: red;");
                 error.setText("Месторасположение на диске неккоректно");
+                disk_addTable.clear();
+
                 flag = true;
             } else if (disk.length() != 1) {
                 disk_addTable.setStyle("-fx-border-color: red;");
                 error.setText("Диск должен быть из одной буквы(A, B, C, D ...)");
+                disk_addTable.clear();
                 flag = true;
             }
 
@@ -138,6 +155,7 @@ public class AddProductController extends Controller {
 
             } catch (NumberFormatException e) {
                 price_addTable.setStyle("-fx-border-color: red;");
+                price_addTable.clear();
                 error.setText("Цена неккоректна");
                 flag = true;
             }
@@ -146,12 +164,14 @@ public class AddProductController extends Controller {
                 memory = Double.parseDouble(memory_addTable.getText());
                 if (memory <= 0) {
                     memory_addTable.setStyle("-fx-border-color: red;");
-                    error.setText("Необходимая память должна быть больше 0");
+                    error.setText("Количество памяти должно быть больше 0");
+                    memory_addTable.clear();
                     flag = true;
                 }
             } catch (NumberFormatException e) {
                 memory_addTable.setStyle("-fx-border-color: red;");
-                error.setText("Необходимая память неккоректна");
+                memory_addTable.clear();
+                error.setText("Количество памяти неккоректно");
                 flag = true;
             }
 
@@ -160,11 +180,14 @@ public class AddProductController extends Controller {
                 if (ram <= 0) {
                     ram_addTable.setStyle("-fx-border-color: red;");
                     error.setText("Оперативная память должна быть больше 0");
+                    ram_addTable.clear();
                     flag = true;
                 }
             } catch (NumberFormatException e) {
                 ram_addTable.setStyle("-fx-border-color: red;");
                 error.setText("Оперативная память неккоректна");
+                ram_addTable.clear();
+
                 flag = true;
             }
 
@@ -173,11 +196,14 @@ public class AddProductController extends Controller {
                 if (videocard <= 0) {
                     videocard_addTable.setStyle("-fx-border-color: red;");
                     error.setText("Видеопамять должна быть больше 0");
+                    videocard_addTable.clear();
                     flag = true;
                 }
             } catch (NumberFormatException e) {
                 videocard_addTable.setStyle("-fx-border-color: red;");
                 error.setText("Видеопамять неккоректна");
+                videocard_addTable.clear();
+
                 flag = true;
             }
 
@@ -187,7 +213,7 @@ public class AddProductController extends Controller {
                 long cpuId = cpu_addTable.getValue().getId();
 
                 try {
-                    products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocard);
+                    products.addProduct(name, providerId, categoryId, disk, price, memory, cpuId, ram, videocard, windows);
                     closeButtonAction();
                     newWindow("complete");
 //                    updateMainTable();
@@ -233,6 +259,8 @@ public class AddProductController extends Controller {
                     }
                 }
                 flag = true;
+                provider_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Выберите производителя");
                 return null;
             }
         });
@@ -264,6 +292,8 @@ public class AddProductController extends Controller {
                         return obj;
                     }
                 }
+                category_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Выберите категорию");
                 flag = true;
                 return null;
             }
@@ -276,9 +306,9 @@ public class AddProductController extends Controller {
             cpu_list.add(new Cpu(res.getLong("id"),
                     res.getString("name"),
                     res.getString("manufacturer"),
-                    res.getString("year"),
+                    res.getString("generation"),
                     res.getString("frequency"),
-                    res.getString("price")));
+                    res.getString("cores")));
         }
         cpu_addTable.setItems(cpu_list);
         cpu_addTable.setConverter(new StringConverter<>() {
@@ -300,6 +330,8 @@ public class AddProductController extends Controller {
                         return obj;
                     }
                 }
+                cpu_addTable.setStyle("-fx-border-color: red;");
+                error.setText("Выберите минимальный процессор");
                 flag = true;
                 return null;
             }
