@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SearchProductsController">
+   <center>
+      <TableView fx:id="products_searchTable" focusTraversable="false" prefHeight="389.0" prefWidth="956.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="id_searchTable" prefWidth="40.666961669921875" text="ID" />
+          <TableColumn fx:id="name_searchTable" prefWidth="126.16429138183594" text="Название" />
+            <TableColumn fx:id="provider_searchTable" prefWidth="140.91566467285156" text="Производитель" />
+            <TableColumn fx:id="category_searchTable" prefWidth="113.5843505859375" text="Категория" />
+            <TableColumn fx:id="disk_searchTable" minWidth="0.0" prefWidth="44.1678466796875" text="Диск" />
+            <TableColumn fx:id="price_searchTable" minWidth="0.0" prefWidth="79.8348388671875" text="Цена" />
+            <TableColumn fx:id="memory_searchTable" minWidth="0.0" prefWidth="71.58526611328125" text="Память" />
+            <TableColumn fx:id="ram_searchTable" minWidth="0.0" prefWidth="44.4183349609375" text="RAM" />
+            <TableColumn fx:id="videocard_searchTable" minWidth="0.0" prefWidth="96.7523193359375" text="Видеопамять" />
+            <TableColumn fx:id="windows_searchTable" maxWidth="93.49725341796875" prefWidth="66.0" text="Windows" />
+            <TableColumn fx:id="cpu_frequency_searchTable" minWidth="0.0" prefWidth="114.0" text="Частота CPU" />
+        </columns>
+      </TableView>
+   </center>
+   <right>
+      <VBox prefHeight="389.0" prefWidth="35.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <VBox prefHeight="140.0" prefWidth="900.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="name_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Название" />
+                  <TextField fx:id="provider_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Производитель" />
+                  <TextField fx:id="category_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Категория" />
+                  <TextField fx:id="disk_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Диск" />
+                  <TextField fx:id="price_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Цена" />
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#searchProducts" prefHeight="33.0" prefWidth="200.0" text="НАЙТИ" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="memory_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Память" />
+                  <TextField fx:id="ram_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="RAM" />
+                  <TextField fx:id="videocard_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Видеопамять" />
+                  <TextField fx:id="windows_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Windows" />
+                  <TextField fx:id="cpuFrequency_searchFiled" focusTraversable="false" prefHeight="32.0" prefWidth="200.0" promptText="Частота CPU" />
+                  <Button fx:id="close_button" focusTraversable="false" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: #ef6101#ef6101;" text="НАЗАД" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </HBox>
+         </children></VBox>
+   </bottom>
+   <top>
+      <VBox prefHeight="71.0" prefWidth="900.0" style="-fx-background-color: #045658 #045658;" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <Label text="ПОИСК ПО ВСЕМ ПРОДУКТАМ" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefHeight="389.0" prefWidth="35.0" style="-fx-background-color: #045658 #045658;" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

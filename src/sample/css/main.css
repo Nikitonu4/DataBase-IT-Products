@@ -1,16 +1,18 @@
 .button{
-    -fx-border-radius: 4px;
+    -fx-border-radius: 10px;
     -fx-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
     -fx-color: #fff;
     -fx-padding: 8px 16px;
     -fx-transition: background-color 0.1s linear;
     -fx-background-color: #fdac07;
-    -fx-font-family: Montserrat;
-    -fx-font-weight: bold;
 }
 
 .button:hover {
     -fx-background-color: #EEBC48;
+}
+
+.buttonFind_main{
+    -fx-background-color: #ff8200;
 }
 
 .menu-bar{
@@ -21,4 +23,7 @@
 {
     -fx-text-fill: #03161d;
 }
-
+.nameField_searchTable{
+    -fx-color: #fff;
+    -fx-text-fill: #fff;
+}

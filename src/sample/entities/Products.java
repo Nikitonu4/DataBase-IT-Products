@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Products extends BaseTable implements TableOperations{
+public class Products extends BaseTable implements TableOperations {
 
     public Products() throws SQLException, ClassNotFoundException {
         super("products");
@@ -20,27 +20,18 @@ public class Products extends BaseTable implements TableOperations{
                 "    disk character varying(1) NOT NULL, " +
                 "    price numeric(10,2) NOT NULL," +
                 "    memory numeric(50,2) NOT NULL," +
-                "    cpu integer NOT NULL," +
                 "    ram integer NOT NULL," +
                 "    videocard integer NOT NULL," +
-                "    windows character varying(2) NOT NULL,"+
+                "    windows character varying(10) NOT NULL," +
                 "CONSTRAINT fk_category FOREIGN KEY (category)" +
                 "    REFERENCES public.categories (id) MATCH SIMPLE, " +
-                "CONSTRAINT fk_cpu_pc FOREIGN KEY (cpu)" +
-                "    REFERENCES public.cpu_list (id) MATCH SIMPLE," +
                 "    CONSTRAINT fk_provider FOREIGN KEY (provider)" +
                 "    REFERENCES public.providers (id) MATCH SIMPLE);", "Обновлена таблица " + tableName);
     }
 
-//TODO ДОБАВИТЬ ВЕРСИЮ windows
-    @Override
-    public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {
-        super.executeSqlStatement(sql);
-    }
-
-    public void addProduct(String name, long providerId, long categoryId, String disk, double price, double memory, long cpuId, int ram, int videocard, String windows) throws SQLException, ClassNotFoundException {
+    public void addProduct(String name, long providerId, long categoryId, String disk, double price, double memory, int ram, int videocard, String windows, double cpu_frquency) throws SQLException, ClassNotFoundException {
         reopenConnection();
-        String sql = "INSERT INTO products (name, provider, category, disk, price, memory, cpu, ram, videocard, windows) VALUES (?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO products (name, provider, category, disk, price, memory, ram, videocard, windows, cpu_frequency) VALUES (?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, name);
         ps.setLong(2, providerId);
@@ -48,22 +39,22 @@ public class Products extends BaseTable implements TableOperations{
         ps.setString(4, disk);
         ps.setDouble(5, price);
         ps.setDouble(6, memory);
-        ps.setLong(7, cpuId);
-        ps.setInt(8, ram);
-        ps.setInt(9, videocard);
-        ps.setString(10, windows);
+        ps.setInt(7, ram);
+        ps.setInt(8, videocard);
+        ps.setString(9, windows);
+        ps.setDouble(10, cpu_frquency);
         ps.executeUpdate();
         connection.close();
         System.out.println("Добавлено!");
     }
 
-    public long findIdByName(String name) throws  SQLException, ClassNotFoundException{
+    public long findIdByName(String name) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE \"name\" = ?;");
-        ps.setString(1,name);
+        ps.setString(1, name);
         ResultSet result = ps.executeQuery();
         long providerId = 0;
-        while(result.next()){
+        while (result.next()) {
             providerId = result.getLong("id");
         }
         return providerId;
@@ -75,10 +66,42 @@ public class Products extends BaseTable implements TableOperations{
         ps.setLong(1, id);
         ResultSet result = ps.executeQuery();
         String provider = null;
-        while(result.next()){
+        while (result.next()) {
             provider = result.getString("name");
         }
         return provider;
+    }
+
+    public ResultSet selectWhere(String name, long provider_id, long category_id, String disk, String price, String memory, String ram, String videocard, String windows, String cpu_frquency) throws SQLException {
+
+        String sql = "SELECT * FROM products WHERE ";
+        if (name.length() > 0)
+            sql += " lower(name) = lower(\'" + name + "\')" + " AND ";
+        if (provider_id != 0)
+            sql += " provider = \'" + provider_id + "\'" + " AND ";
+        if (category_id != 0)
+            sql += " category = \'" + category_id + "\'" + " AND ";
+        if (disk.length() > 0)
+            sql += " lower(disk) = lower(\'" + disk + "\')" + " AND ";
+        if (price.length() > 0)
+            sql += " price = \'" + price + "\'" + " AND ";
+        if (memory.length() > 0)
+            sql += " memory = \'" + memory + "\'" + " AND ";
+        if (ram.length() > 0)
+            sql += " ram = \'" + ram + "\'" + " AND ";
+        if (videocard.length() > 0)
+            sql += " videocard = \'" + videocard + "\'" + " AND ";
+        if (windows.length() > 0)
+            sql += " windows = \'" + windows + "\'" + " AND ";
+        if (cpu_frquency.length() > 0)
+            sql += " cpu_frequency = \''" + cpu_frquency + "\'";
+        sql = sql.substring(0, sql.lastIndexOf("AND"));
+
+        sql += " ;";
+
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet res = ps.executeQuery();
+        return res;
     }
 
 }

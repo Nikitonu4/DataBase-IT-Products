@@ -5,21 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.entities.Providers;
-import sample.models.DbManager;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class AddProviderController extends Controller {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField provider_name;
@@ -40,18 +30,16 @@ public class AddProviderController extends Controller {
     }
 
     @FXML
-    void initialize(){
+    void initialize() {
         add_provider_button.setOnAction(event -> {
             try {
-                DbManager db;
+                reOpen();
                 String providerName = provider_name.getText();
-                db = new DbManager();
-                Providers providers = db.getProviders();
                 ResultSet res = providers.selectAll();
                 boolean flag = false;
-                if (providerName == null || providerName == "") {
+                if (providerName.isEmpty()) {
                     provider_name.setStyle("-fx-border-color: red;");
-                    error.setText("Производитель пуст");
+                    error.setText("Название производителя пусто");
                 } else {
                     while (res.next()) {
                         if (res.getString("name").equalsIgnoreCase(providerName)) {

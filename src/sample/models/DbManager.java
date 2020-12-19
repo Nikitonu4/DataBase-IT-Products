@@ -1,4 +1,5 @@
 package sample.models;
+
 import sample.entities.*;
 
 import java.sql.*;
@@ -15,7 +16,6 @@ public class DbManager {
 
     private Categories categories;
     private Computers computers;
-    private CpuList cpuList;
     private Products products;
     private Providers providers;
 
@@ -27,10 +27,6 @@ public class DbManager {
         return computers;
     }
 
-    public CpuList getCpuList() {
-        return cpuList;
-    }
-
     public Products getProducts() {
         return products;
     }
@@ -39,16 +35,17 @@ public class DbManager {
         return providers;
     }
 
-    /** Подключение к БД */
+    /**
+     * Подключение к БД
+     */
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         return DriverManager.getConnection(DB_URL, DB_User, DB_Password);
     }
 
-    public DbManager() throws SQLException, ClassNotFoundException{
+    public DbManager() throws SQLException, ClassNotFoundException {
         Class.forName(DB_Driver);
         categories = new Categories();
         computers = new Computers();
-        cpuList = new CpuList();
         products = new Products();
         providers = new Providers();
     }
@@ -56,7 +53,6 @@ public class DbManager {
     public void createTablesAndForeignKeys() throws SQLException, ClassNotFoundException {
         //создание таблиц
         categories.createTable();
-        cpuList.createTable();
         computers.createTable();
         providers.createTable();
         products.createTable();

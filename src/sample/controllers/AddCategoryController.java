@@ -5,22 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.entities.Categories;
-import sample.models.DbManager;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class AddCategoryController extends Controller {
-
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField category_name;
@@ -41,18 +30,16 @@ public class AddCategoryController extends Controller {
     }
 
     @FXML
-    void initialize(){
+    void initialize() {
         add_category_button.setOnAction(event -> {
             try {
-                DbManager db;
-                String categoryName = category_name.getText();
-                db = new DbManager();
-                boolean flag = false;
-                Categories categories = db.getCategories();
+                reOpen();
                 ResultSet res = categories.selectAll();
-                if (categoryName == null || categoryName == "") {
+                String categoryName = category_name.getText();
+                boolean flag = false;
+                if (categoryName.isEmpty()) {
                     category_name.setStyle("-fx-border-color: red;");
-                    error.setText("Категория пуста");
+                    error.setText("Название категории пусто");
                 } else {
                     while (res.next()) {
                         if (res.getString("name").equalsIgnoreCase(categoryName)) {

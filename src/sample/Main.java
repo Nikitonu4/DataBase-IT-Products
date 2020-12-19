@@ -15,7 +15,7 @@ public class Main extends Application {
         DbManager db = new DbManager();
         db.createTablesAndForeignKeys();
         primaryStage.setTitle("Библиотека программных продуктов");
-        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setScene(new Scene(root, 1150, 600));
         primaryStage.show();
     }
 

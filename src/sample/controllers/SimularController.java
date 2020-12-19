@@ -2,36 +2,19 @@ package sample.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sample.entities.*;
-import sample.models.DbManager;
 import sample.models.Product;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class SimularController {
+public class SimularController extends Controller {
     private ObservableList<Product> simularProducts = FXCollections.observableArrayList();
-    private DbManager db;
-    private Categories categories;
-    private Computers computers;
-    private CpuList cpuList;
-    private Products products;
-    private Providers providers;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TableView<Product> products_table;
@@ -58,9 +41,6 @@ public class SimularController {
     private TableColumn<Product, String> memory_simular;
 
     @FXML
-    private TableColumn<Product, String> cpu_simular;
-
-    @FXML
     private TableColumn<Product, String> ram_simular;
 
     @FXML
@@ -70,10 +50,13 @@ public class SimularController {
     private TableColumn<Product, String> windows_simular;
 
     @FXML
+    private TableColumn<Product, String> cpu_frequency_simular;
+
+    @FXML
     private Button close_button;
 
     @FXML
-    void closeButtonAction(ActionEvent event) {
+    void closeButtonAction() {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
     }
@@ -81,6 +64,7 @@ public class SimularController {
     @FXML
     void initialize() {
     }
+
 
     private void setCells() {
         id_simular.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -90,29 +74,16 @@ public class SimularController {
         disk_simular.setCellValueFactory(new PropertyValueFactory<>("disk"));
         price_simular.setCellValueFactory(new PropertyValueFactory<>("price"));
         memory_simular.setCellValueFactory(new PropertyValueFactory<>("memory"));
-        cpu_simular.setCellValueFactory(new PropertyValueFactory<>("cpu"));
         ram_simular.setCellValueFactory(new PropertyValueFactory<>("ram"));
         videocard_simular.setCellValueFactory(new PropertyValueFactory<>("videocard"));
         windows_simular.setCellValueFactory(new PropertyValueFactory<>("windows"));
-
-    }
-
-    protected void reOpen() throws SQLException, ClassNotFoundException {
-        db = new DbManager();
-        this.categories = db.getCategories();
-        this.computers = db.getComputers();
-        this.cpuList = db.getCpuList();
-        this.products = db.getProducts();
-        this.providers = db.getProviders();
+        cpu_frequency_simular.setCellValueFactory(new PropertyValueFactory<>("cpu_frequency"));
     }
 
     protected void showSimular(Product product) throws SQLException, ClassNotFoundException {
-
-        db = new DbManager();
-        Products products = db.getProducts();
-        ResultSet res = products.selectAll();
         setCells();
         reOpen();
+        ResultSet res = products.selectAll();
         simularProducts.clear();
 
         long pr_category = categories.findIdByName(product.getCategory());
@@ -124,22 +95,20 @@ public class SimularController {
                 String providerName = providers.findNamebyId(provider_id);
 
                 long category_id = res.getLong("category");
-            String categoryName = categories.findNamebyId(category_id);
-
-                long cpu_id = res.getLong("cpu");
-                String cpuName = cpuList.allSpecificial(cpu_id);
+                String categoryName = categories.findNamebyId(category_id);
 
                 simularProducts.add(new Product(res.getString("id"),
                         res.getString("name"),
                         providerName,
                         categoryName,
-                        res.getString("disk"),
-                        res.getString("price"),
-                        res.getString("memory"),
-                        cpuName,
-                        res.getString("ram"),
-                        res.getString("videocard"),
-                        res.getString("windows")));
+                        res.getString("disk") + ":",
+                        res.getString("price") + " руб.",
+                        res.getString("memory") + " Мб",
+                        res.getString("ram") + " Мб",
+                        res.getString("videocard") + " Мб",
+                        res.getString("windows"),
+                        res.getString("cpu_frequency") + " Ггц"
+                ));
             }
         }
         products_table.setItems(simularProducts);

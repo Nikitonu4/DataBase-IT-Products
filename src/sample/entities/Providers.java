@@ -17,18 +17,13 @@ public class Providers extends BaseTable implements TableOperations {
                 "    name character varying(150) COLLATE pg_catalog.default NOT NULL);", "Обновлена таблица " + tableName);
     }
 
-    @Override
-    public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {
-
-    }
-
-    public long findIdByName(String name) throws  SQLException, ClassNotFoundException{
+    public long findIdByName(String name) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM providers WHERE \"name\" = ?;");
-        ps.setString(1,name);
+        ps.setString(1, name);
         ResultSet result = ps.executeQuery();
         long providerId = 0;
-        while(result.next()){
+        while (result.next()) {
             providerId = result.getLong("id");
         }
         return providerId;
@@ -37,10 +32,10 @@ public class Providers extends BaseTable implements TableOperations {
     public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM providers WHERE \"id\" = ?;");
-        ps.setLong(1,id);
+        ps.setLong(1, id);
         ResultSet result = ps.executeQuery();
         String provider = null;
-        while(result.next()){
+        while (result.next()) {
             provider = result.getString("name");
         }
         return provider;

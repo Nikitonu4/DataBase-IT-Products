@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Categories extends BaseTable implements TableOperations{
+public class Categories extends BaseTable implements TableOperations {
 
     public Categories() throws SQLException, ClassNotFoundException {
         super("categories");
@@ -17,18 +17,13 @@ public class Categories extends BaseTable implements TableOperations{
                 "    name character varying(150) NOT NULL);", "Обновлена таблица " + tableName);
     }
 
-    @Override
-    public void insertBaseDate(String sql) throws SQLException, ClassNotFoundException {
-
-    }
-
-    public long findIdByName(String name) throws  SQLException, ClassNotFoundException{
+    public long findIdByName(String name) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM categories WHERE \"name\" = ?;");
-        ps.setString(1,name);
+        ps.setString(1, name);
         ResultSet result = ps.executeQuery();
         long categoryId = 0;
-        while(result.next()){
+        while (result.next()) {
             categoryId = result.getLong("id");
         }
         return categoryId;
@@ -38,10 +33,10 @@ public class Categories extends BaseTable implements TableOperations{
     public String findNamebyId(long id) throws SQLException, ClassNotFoundException {
         reopenConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM categories WHERE \"id\" = ? ORDER BY name ASC;");
-        ps.setLong(1,id);
+        ps.setLong(1, id);
         ResultSet result = ps.executeQuery();
         String category = null;
-        while(result.next()){
+        while (result.next()) {
             category = result.getString("name");
         }
         return category;

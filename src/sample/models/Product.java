@@ -13,12 +13,12 @@ public class Product extends Products {
     private String disk;
     private String price;
     private String memory;
-    private String cpu;
     private String ram;
     private String videocard;
     private String windows;
+    private String cpu_frequency;
 
-    public Product(String id, String name, String provider, String category, String disk, String price, String memory, String cpu, String ram, String videocard, String windows) throws SQLException, ClassNotFoundException {
+    public Product(String id, String name, String provider, String category, String disk, String price, String memory, String ram, String videocard, String windows, String cpu_frequency) throws SQLException, ClassNotFoundException {
         this.id = id;
         this.name = name;
         this.provider = provider;
@@ -26,10 +26,10 @@ public class Product extends Products {
         this.disk = disk;
         this.price = price;
         this.memory = memory;
-        this.cpu = cpu;
         this.ram = ram;
         this.videocard = videocard;
         this.windows = windows;
+        this.cpu_frequency = cpu_frequency;
     }
 
     public Product(String name, String provider, String category, String disk, String price) throws SQLException, ClassNotFoundException {
@@ -40,12 +40,12 @@ public class Product extends Products {
         this.price = price;
     }
 
-    public String getVideocard() {
-        return videocard;
+    public String getCpu_frequency() {
+        return cpu_frequency;
     }
 
-    public void setVideocard(String videocard) {
-        this.videocard = videocard;
+    public void setCpu_frequency(String cpu_frequency) {
+        this.cpu_frequency = cpu_frequency;
     }
 
     public String getId() {
@@ -88,7 +88,6 @@ public class Product extends Products {
         this.disk = disk;
     }
 
-
     public String getPrice() {
         return price;
     }
@@ -105,20 +104,20 @@ public class Product extends Products {
         this.memory = memory;
     }
 
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
     public String getRam() {
         return ram;
     }
 
     public void setRam(String ram) {
         this.ram = ram;
+    }
+
+    public String getVideocard() {
+        return videocard;
+    }
+
+    public void setVideocard(String videocard) {
+        this.videocard = videocard;
     }
 
     public String getWindows() {

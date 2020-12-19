@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -11,11 +12,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1150.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
    <top>
       <VBox prefHeight="0.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,10 +25,9 @@
               <menus>
                 <Menu mnemonicParsing="false" styleClass="menu_item_main" text="Добавить">
                   <items>
-                    <MenuItem fx:id="addProduct_button" mnemonicParsing="false" text="Добавить продукт" />
-                        <MenuItem fx:id="addCategory_button" mnemonicParsing="false" text="Добавить категорию" />
-                        <MenuItem fx:id="addProvider_button" mnemonicParsing="false" text="Добавить производителя" />
-                        <MenuItem fx:id="addCpu_button" mnemonicParsing="false" text="Добавить процессор" />
+                    <MenuItem fx:id="addProduct_button" mnemonicParsing="false" onAction="#addProductButton" text="Добавить продукт" />
+                        <MenuItem fx:id="addCategory_button" mnemonicParsing="false" onAction="#addCategoryButton" text="Добавить категорию" />
+                        <MenuItem fx:id="addProvider_button" mnemonicParsing="false" onAction="#addProviderButton" text="Добавить производителя" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Изменить">
@@ -45,13 +46,13 @@
       </VBox>
    </top>
    <center>
-      <TableView fx:id="products_table" focusTraversable="false" prefHeight="394.0" prefWidth="482.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="products_table" focusTraversable="false" prefHeight="371.0" prefWidth="482.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="products_name_table" prefWidth="82.0" text="Название" />
-          <TableColumn fx:id="products_provider_table" prefWidth="107.0" text="Производитель" />
-            <TableColumn fx:id="products_category_table" prefWidth="103.0" text="Категория" />
-            <TableColumn fx:id="products_disk_table" prefWidth="68.0" text="Диск" />
-            <TableColumn fx:id="products_price_table" minWidth="0.0" prefWidth="79.5" text="Цена" />
+          <TableColumn fx:id="products_name_table" prefWidth="159.5755615234375" text="Название" />
+          <TableColumn fx:id="products_provider_table" prefWidth="158.9244384765625" text="Производитель" />
+            <TableColumn fx:id="products_category_table" prefWidth="167.65582275390625" text="Категория" />
+            <TableColumn fx:id="products_disk_table" prefWidth="98.781982421875" text="Диск" />
+            <TableColumn fx:id="products_price_table" minWidth="0.0" prefWidth="146.79632568359375" text="Цена" />
         </columns>
       </TableView>
    </center>
@@ -71,7 +72,7 @@
                         <Image url="@../images/dbweb.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="find_button" layoutX="80.0" layoutY="333.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="252.0" text="НАЙТИ" />
+                  <Button layoutX="80.0" layoutY="333.0" mnemonicParsing="false" onAction="#findButton" prefHeight="33.0" prefWidth="252.0" styleClass="buttonFind_main" text="НАЙТИ" />
                   <Label layoutX="64.0" layoutY="110.0" text="БИБЛИОТЕКА ПРОГРАММНЫХ ПРОДУКТОВ" textFill="WHITE" />
                </children>
             </Pane>
@@ -80,20 +81,66 @@
    <bottom>
       <VBox prefHeight="140.0" prefWidth="900.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <VBox prefHeight="200.0" prefWidth="900.0">
                <children>
-                  <Button fx:id="update_button" layoutX="759.0" layoutY="38.0" mnemonicParsing="false" text="ОБНОВИТЬ " textAlignment="CENTER">
-                     <font>
-                        <Font name="Montserrat Regular" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="similar_button" layoutX="426.0" layoutY="38.0" mnemonicParsing="false" onAction="#SimularProducts" text="ПОКАЗАТЬ ПОХОЖИЕ" textAlignment="CENTER">
-                     <font>
-                        <Font name="Montserrat Regular" size="13.0" />
-                     </font>
-                  </Button>
+                  <HBox prefHeight="38.0" prefWidth="900.0" spacing="50.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#searchProducts" prefHeight="33.0" prefWidth="206.0" text="ПОИСК ПО ПРОДУКТАМ" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="similar_button" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОХОЖЕЕ" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="similar_button1" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОДОБРАТЬ ПРОДУКТ" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="update_button" mnemonicParsing="false" prefWidth="206.0" text="ОБНОВИТЬ  ТАБЛИЦУ" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="100.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="73.0" prefWidth="895.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="update_button1" mnemonicParsing="false" prefHeight="42.0" prefWidth="412.0" text="СОВМЕСТИМОСТЬ С ПК" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="similar_button2" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="42.0" prefWidth="412.0" text="ВАРИАНТЫ КОМПЛЕКТАЦИИ" textAlignment="CENTER">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="160.0" right="100.0" />
+                     </padding>
+                  </HBox>
                </children>
-            </Pane>
+            </VBox>
          </children></VBox>
    </bottom>
 </BorderPane>
