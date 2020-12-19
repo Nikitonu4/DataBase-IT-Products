@@ -5,6 +5,7 @@
     -fx-padding: 8px 16px;
     -fx-transition: background-color 0.1s linear;
     -fx-background-color: #fdac07;
+    -fx-font-weight: 300;
 }
 
 .button:hover {

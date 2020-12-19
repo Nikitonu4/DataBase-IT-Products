@@ -19,7 +19,7 @@ public class Providers extends BaseTable implements TableOperations {
 
     public long findIdByName(String name) throws SQLException, ClassNotFoundException {
         reopenConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM providers WHERE \"name\" = ?;");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM providers WHERE \"name\" ~* ?;");
         ps.setString(1, name);
         ResultSet result = ps.executeQuery();
         long providerId = 0;

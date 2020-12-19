@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ResultCompatibilityController">
+   <center>
+          <Pane prefHeight="572.0" prefWidth="500.0" style="-fx-background-color: #045658;" BorderPane.alignment="CENTER">
+              <children>
+                  <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="279.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
+                      <image>
+                          <Image url="@../images/PC.png" />
+                      </image>
+                  </ImageView>
+                  <Label layoutX="215.0" layoutY="98.0" text="ПРОВЕРКА СОВМЕСТИМОСТИ" textFill="WHITE" />
+            <Label fx:id="error" layoutX="133.0" layoutY="567.0" prefHeight="17.0" prefWidth="254.0" textAlignment="CENTER" textFill="WHITE" />
+            <Label layoutX="103.0" layoutY="136.0" text="Свободное место:" textFill="WHITE" />
+            <Label layoutX="103.0" layoutY="163.0" text="Оперативная память:" textFill="WHITE" />
+            <Label layoutX="104.0" layoutY="190.0" text="Видеопамять: " textFill="WHITE" />
+            <Label layoutX="104.0" layoutY="218.0" text="Windows:" textFill="WHITE" />
+            <Label layoutX="104.0" layoutY="248.0" text="Процессор:" textFill="WHITE" />
+            <Button fx:id="close_button" layoutX="158.0" layoutY="297.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="33.0" prefWidth="312.0" style="-fx-background-color: #fdac07;" text="ОК" />
+            <Label fx:id="memory_resultCheck" layoutX="231.0" layoutY="136.0" prefHeight="17.0" prefWidth="367.0" />
+            <Label fx:id="ram_resultCheck" layoutX="245.0" layoutY="162.0" prefHeight="17.0" prefWidth="353.0" />
+            <Label fx:id="videocard_resultCheck" layoutX="197.0" layoutY="190.0" prefHeight="17.0" prefWidth="402.0" />
+            <Label fx:id="windows_resultCheck" layoutX="167.0" layoutY="217.0" prefHeight="17.0" prefWidth="432.0" />
+            <Label fx:id="cpuFrequency_resultCheck" layoutX="184.0" layoutY="248.0" prefHeight="17.0" prefWidth="413.0" />
+              </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+          </Pane>
+   </center>
+</BorderPane>

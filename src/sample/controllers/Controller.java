@@ -69,29 +69,43 @@ public class Controller {
     private TextField provider_search;
 
     @FXML
-    void SimularProducts() {
+    void SimularProducts() throws IOException, SQLException, ClassNotFoundException {
         Product pr;
         pr = products_table.getSelectionModel().getSelectedItem();
-        if (pr != null)
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../view/simularProducts.fxml"));
-                loader.load();
-                Parent root = loader.getRoot();
-                Stage stage = new Stage();
-                SimularController simc = loader.getController();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(new Scene(root));
-                stage.show();
-                simc.showSimular(pr);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        if (pr != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/simularProducts.fxml"));
+            loader.load();
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            SimularController simc = loader.getController();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.show();
+            simc.showSimular(pr);
+        }
+        else newWindow("notSelectedProduct");
     }
+
+    @FXML
+    void checkCompatibility() throws SQLException, ClassNotFoundException, IOException {
+        Product pr;
+        pr = products_table.getSelectionModel().getSelectedItem();
+        if (pr != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/checkCompatibility.fxml"));
+            loader.load();
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            CheckCompatibilityController chc = loader.getController();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.show();
+            chc.checkCompatibility(pr);
+        }
+        else newWindow("notSelectedProduct");
+    }
+
 
     @FXML
     void addProductButton() {
@@ -162,6 +176,12 @@ public class Controller {
     }
 
     @FXML
+    void compatibilityButton() {
+
+    }
+
+
+    @FXML
     void initialize() throws Exception {
         reOpen();
         updateMainTable();
@@ -174,61 +194,6 @@ public class Controller {
                 e.printStackTrace();
             }
         });
-
-//        addProduct_button.setOnAction(event -> {
-//        });
-
-//        addCategory_button.setOnAction(event -> {
-//            newWindow("addCategory");
-//        });
-
-//        addProvider_button.setOnAction(event -> {
-//            newWindow("addProvider");
-//        });
-
-//        find_button.setOnAction(event -> {
-//            boolean flag = false;
-//            if (name_search.getText().isEmpty()) {
-//                name_search.setStyle("-fx-border-color: red;");
-//                flag = true;
-//            } else {
-//                name_search.setStyle("-fx-border-color: none;");
-//            }
-//            if (provider_search.getText().isEmpty()) {
-//                provider_search.setStyle("-fx-border-color: red;");
-//                flag = true;
-//
-//            } else {
-//                provider_search.setStyle("-fx-border-color: none;");
-//            }
-//            if (category_search.getText().isEmpty()) {
-//                category_search.setStyle("-fx-border-color: red;");
-//                flag = true;
-//            } else {
-//                category_search.setStyle("-fx-border-color: none;");
-//            }
-//
-//            if (!flag) {
-//                try {
-//                    FXMLLoader loader = new FXMLLoader();
-//                    loader.setLocation(getClass().getResource("../view/informationProduct.fxml"));
-//                    loader.load();
-//                    Parent root = loader.getRoot();
-//                    Stage stage = new Stage();
-//                    InformationController infoc = loader.getController();
-//                    stage.initModality(Modality.APPLICATION_MODAL);
-//                    stage.setScene(new Scene(root));
-//                    stage.show();
-//                    infoc.info(name_search.getText().trim(), provider_search.getText().trim(), category_search.getText().trim());
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                } catch (ClassNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
     }
 
     protected void newWindow(String windowName) {
@@ -269,11 +234,17 @@ public class Controller {
             String categoryName = categories.findNamebyId(category_id);
 
             products_list_view.add(new Product(
+                    selected.getString("id"),
                     selected.getString("name"),
                     providerName,
                     categoryName,
-                    selected.getString("disk") + ":",
-                    selected.getString("price") + " руб."
+                    selected.getString("disk"),
+                    selected.getString("price"),
+                    selected.getString("memory"),
+                    selected.getString("ram"),
+                    selected.getString("videocard"),
+                    selected.getString("windows"),
+                    selected.getString("cpu_frequency")
             ));
         }
         products_table.setItems(products_list_view);

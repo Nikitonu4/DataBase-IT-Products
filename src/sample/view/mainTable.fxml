@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1150.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
    <top>
@@ -86,28 +85,13 @@
                   <HBox prefHeight="38.0" prefWidth="900.0" spacing="50.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#searchProducts" prefHeight="33.0" prefWidth="206.0" text="ПОИСК ПО ПРОДУКТАМ" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="similar_button" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОХОЖЕЕ" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="similar_button1" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОДОБРАТЬ ПРОДУКТ" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="update_button" mnemonicParsing="false" prefWidth="206.0" text="ОБНОВИТЬ  ТАБЛИЦУ" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
-                        </Button>
+                        <Button fx:id="similar_button" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОХОЖЕЕ" textAlignment="CENTER" />
+                        <Button fx:id="similar_button1" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="33.0" prefWidth="206.0" text="ПОДОБРАТЬ ПРОДУКТ" textAlignment="CENTER" />
+                        <Button fx:id="update_button" mnemonicParsing="false" prefWidth="206.0" text="ОБНОВИТЬ  ТАБЛИЦУ" textAlignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />
@@ -118,19 +102,12 @@
                   </HBox>
                   <HBox prefHeight="73.0" prefWidth="895.0" spacing="30.0">
                      <children>
-                        <Button fx:id="update_button1" mnemonicParsing="false" prefHeight="42.0" prefWidth="412.0" text="СОВМЕСТИМОСТЬ С ПК" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
+                        <Button mnemonicParsing="false" onAction="#checkCompatibility" prefHeight="42.0" prefWidth="412.0" text="СОВМЕСТИМОСТЬ С ПК" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="similar_button2" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="42.0" prefWidth="412.0" text="ВАРИАНТЫ КОМПЛЕКТАЦИИ" textAlignment="CENTER">
-                           <font>
-                              <Font name="Montserrat Regular" size="13.0" />
-                           </font>
-                        </Button>
+                        <Button fx:id="similar_button2" mnemonicParsing="false" onAction="#SimularProducts" prefHeight="42.0" prefWidth="412.0" text="ВАРИАНТЫ КОМПЛЕКТАЦИИ" textAlignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets top="30.0" />

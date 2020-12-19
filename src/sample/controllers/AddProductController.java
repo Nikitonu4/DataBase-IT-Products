@@ -199,9 +199,6 @@ public class AddProductController extends Controller {
                         return obj;
                     }
                 }
-                flag = false;
-                provider_addTable.setStyle("-fx-border-color: red;");
-                error.setText("Такого производителя нет");
                 return null;
             }
         });
@@ -235,9 +232,6 @@ public class AddProductController extends Controller {
                         return obj;
                     }
                 }
-                category_addTable.setStyle("-fx-border-color: red;");
-                error.setText("Такой категории нет");
-                flag = false;
                 return null;
             }
         });
@@ -364,15 +358,6 @@ public class AddProductController extends Controller {
         if (windows == null || windows.isEmpty()) {
             windows_addTable.setStyle("-fx-border-color: red;");
             error.setText("Версия windows пуста");
-            return false;
-        }
-        if (!(windows.equals("2000") ||
-                windows.equals("XP") ||
-                windows.equals("7") ||
-                windows.equals("8") ||
-                windows.equals("10"))) {
-            windows_addTable.setStyle("-fx-border-color: red;");
-            error.setText("Выберите windows из списка");
             return false;
         }
         return true;

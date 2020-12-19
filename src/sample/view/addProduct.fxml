@@ -23,8 +23,8 @@
                   </ImageView>
                   <Button fx:id="addButton_addTable" layoutX="127.0" layoutY="520.0" mnemonicParsing="false" onAction="#addButton" prefHeight="33.0" prefWidth="252.0" text="ДОБАВИТЬ" />
                   <Label layoutX="167.0" layoutY="89.0" text="ДОБАВЛЕНИЕ ПРОДУКТА" textFill="WHITE" />
-            <ComboBox fx:id="provider_addTable" editable="true" focusTraversable="false" layoutX="127.0" layoutY="152.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
-            <ComboBox fx:id="category_addTable" editable="true" focusTraversable="false" layoutX="127.0" layoutY="191.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
+            <ComboBox fx:id="provider_addTable" focusTraversable="false" layoutX="127.0" layoutY="152.0" prefHeight="32.0" prefWidth="252.0" promptText="Производитель" />
+            <ComboBox fx:id="category_addTable" focusTraversable="false" layoutX="127.0" layoutY="191.0" prefHeight="32.0" prefWidth="252.0" promptText="Категория" />
             <TextField fx:id="disk_addTable" focusTraversable="false" layoutX="127.0" layoutY="231.0" prefHeight="32.0" prefWidth="252.0" promptText="Месторасположение на диске" />
             <TextField fx:id="memory_addTable" focusTraversable="false" layoutX="127.0" layoutY="309.0" prefHeight="32.0" prefWidth="252.0" promptText="Количество памяти" />
             <TextField fx:id="ram_addTable" focusTraversable="false" layoutX="127.0" layoutY="387.0" prefHeight="32.0" prefWidth="252.0" promptText="Оперативная память" />
@@ -35,7 +35,7 @@
             <TextField fx:id="videocard_addTable" focusTraversable="false" layoutX="127.0" layoutY="428.0" prefHeight="32.0" prefWidth="252.0" promptText="Видеопамять" />
             <Label layoutX="385.0" layoutY="436.0" text="Мб" textFill="WHITE" />
             <Label fx:id="error" contentDisplay="CENTER" layoutX="127.0" layoutY="619.0" prefHeight="17.0" prefWidth="356.0" textAlignment="CENTER" textFill="WHITE" />
-            <ComboBox fx:id="windows_addTable" editable="true" focusTraversable="false" layoutX="127.0" layoutY="470.0" prefHeight="32.0" prefWidth="252.0" promptText="Минимальная версия Windows" />
+            <ComboBox fx:id="windows_addTable" focusTraversable="false" layoutX="127.0" layoutY="470.0" prefHeight="32.0" prefWidth="252.0" promptText="Минимальная версия Windows" />
             <TextField fx:id="cpu_frequency_addTable" focusTraversable="false" layoutX="127.0" layoutY="348.0" prefHeight="32.0" prefWidth="252.0" promptText="Минимальная частота процессора" />
             <Label layoutX="385.0" layoutY="356.0" text="Ггц" textFill="WHITE" />
               </children>

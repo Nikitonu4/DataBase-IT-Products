@@ -3,11 +3,10 @@ package sample.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import sample.models.Product;
 
@@ -87,6 +86,12 @@ public class SearchProductsController extends Controller {
     private Button close_button;
 
     @FXML
+    private Circle status;
+
+    @FXML
+    private Label statusM;
+
+    @FXML
     void closeButtonAction() {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
@@ -115,8 +120,9 @@ public class SearchProductsController extends Controller {
                 windows_searchFiled.getText().isEmpty() &&
                 cpuFrequency_searchFiled.getText().isEmpty()) {
             showAll();
-        }
-        else {
+            status.setFill(Color.rgb(51, 234, 51));
+            statusM.setText("Выполнено");
+        } else {
             ResultSet res = products.selectWhere(
                     name_searchFiled.getText(),
                     id_provider,
@@ -130,25 +136,33 @@ public class SearchProductsController extends Controller {
                     cpuFrequency_searchFiled.getText()
             );
 
+            if (res == null) {
+                status.setFill(Color.RED);
+                statusM.setText("Ошибка");
 
-            while (res.next()) {
-                String categoryName = categories.findNamebyId(res.getLong("category"));
-                String providerName = providers.findNamebyId(res.getLong("provider"));
 
-                seachedProducts.add(new Product(res.getString("id"),
-                        res.getString("name"),
-                        providerName,
-                        categoryName,
-                        res.getString("disk") + ":",
-                        res.getString("price") + " руб.",
-                        res.getString("memory") + " Мб",
-                        res.getString("ram") + " Мб",
-                        res.getString("videocard") + " Мб",
-                        res.getString("windows"),
-                        res.getString("cpu_frequency") + " Ггц"
-                ));
+            } else {
+                status.setFill(Color.rgb(51, 234, 51));
+                statusM.setText("Выполнено");
+                while (res.next()) {
+                    String categoryName = categories.findNamebyId(res.getLong("category"));
+                    String providerName = providers.findNamebyId(res.getLong("provider"));
+
+                    seachedProducts.add(new Product(res.getString("id"),
+                            res.getString("name"),
+                            providerName,
+                            categoryName,
+                            res.getString("disk"),
+                            res.getString("price") + " руб.",
+                            res.getString("memory") + " Мб",
+                            res.getString("ram") + " Мб",
+                            res.getString("videocard") + " Мб",
+                            res.getString("windows"),
+                            res.getString("cpu_frequency") + " Ггц"
+                    ));
+                }
+                products_searchTable.setItems(seachedProducts);
             }
-            products_searchTable.setItems(seachedProducts);
         }
     }
 
@@ -182,37 +196,6 @@ public class SearchProductsController extends Controller {
         }
         products_searchTable.setItems(seachedProducts);
     }
-
-
-//    private void search() throws SQLException, ClassNotFoundException {
-//
-//        long pr_category = categories.findIdByName(product.getCategory());
-//
-//        while (res.next()) {
-//            if (res.getLong("category") == pr_category) {
-//
-//                long provider_id = res.getLong("provider");
-//                String providerName = providers.findNamebyId(provider_id);
-//
-//                long category_id = res.getLong("category");
-//                String categoryName = categories.findNamebyId(category_id);
-//
-//                simularProducts.add(new Product(res.getString("id"),
-//                        res.getString("name"),
-//                        providerName,
-//                        categoryName,
-//                        res.getString("disk") + ":",
-//                        res.getString("price") + " руб.",
-//                        res.getString("memory") + " Мб",
-//                        res.getString("ram") + " Мб",
-//                        res.getString("videocard") + " Мб",
-//                        res.getString("windows"),
-//                        res.getString("cpu_frequency") + " Ггц"
-//                ));
-//            }
-//        }
-//        products_table.setItems(simularProducts);
-//    }
 
     private void setCells() {
         id_searchTable.setCellValueFactory(new PropertyValueFactory<>("id"));

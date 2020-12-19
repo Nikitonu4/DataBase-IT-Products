@@ -101,7 +101,7 @@ public class SimularController extends Controller {
                         res.getString("name"),
                         providerName,
                         categoryName,
-                        res.getString("disk") + ":",
+                        res.getString("disk"),
                         res.getString("price") + " руб.",
                         res.getString("memory") + " Мб",
                         res.getString("ram") + " Мб",

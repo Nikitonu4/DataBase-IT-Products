@@ -72,36 +72,50 @@ public class Products extends BaseTable implements TableOperations {
         return provider;
     }
 
-    public ResultSet selectWhere(String name, long provider_id, long category_id, String disk, String price, String memory, String ram, String videocard, String windows, String cpu_frquency) throws SQLException {
+    public ResultSet selectNameProviderCategory(String name, long category, long provider) throws SQLException, ClassNotFoundException {
+        long id = findIdByName(name);
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE (name,category,provider) = (?,?,?) ;");
+        ps.setString(1, name);
+        ps.setLong(2, category);
+        ps.setLong(3, provider);
 
-        String sql = "SELECT * FROM products WHERE ";
-        if (name.length() > 0)
-            sql += " lower(name) = lower(\'" + name + "\')" + " AND ";
-        if (provider_id != 0)
-            sql += " provider = \'" + provider_id + "\'" + " AND ";
-        if (category_id != 0)
-            sql += " category = \'" + category_id + "\'" + " AND ";
-        if (disk.length() > 0)
-            sql += " lower(disk) = lower(\'" + disk + "\')" + " AND ";
-        if (price.length() > 0)
-            sql += " price = \'" + price + "\'" + " AND ";
-        if (memory.length() > 0)
-            sql += " memory = \'" + memory + "\'" + " AND ";
-        if (ram.length() > 0)
-            sql += " ram = \'" + ram + "\'" + " AND ";
-        if (videocard.length() > 0)
-            sql += " videocard = \'" + videocard + "\'" + " AND ";
-        if (windows.length() > 0)
-            sql += " windows = \'" + windows + "\'" + " AND ";
-        if (cpu_frquency.length() > 0)
-            sql += " cpu_frequency = \''" + cpu_frquency + "\'";
-        sql = sql.substring(0, sql.lastIndexOf("AND"));
-
-        sql += " ;";
-
-        PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet res = ps.executeQuery();
         return res;
+    }
+
+    public ResultSet selectWhere(String name, long provider_id, long category_id, String disk, String price, String memory, String ram, String videocard, String windows, String cpu_frequency){
+        try {
+            String sql = "SELECT * FROM products WHERE ";
+            if (name.length() > 0)
+                sql += " lower(name) = lower(\'" + name + "\')" + " AND ";
+            if (provider_id != 0)
+                sql += " provider = \'" + provider_id + "\'" + " AND ";
+            if (category_id != 0)
+                sql += " category = \'" + category_id + "\'" + " AND ";
+            if (disk.length() > 0)
+                sql += " lower(disk) = lower(\'" + disk + "\')" + " AND ";
+            if (price.length() > 0)
+                sql += " price = \'" + price + "\'" + " AND ";
+            if (memory.length() > 0)
+                sql += " memory = \'" + memory + "\'" + " AND ";
+            if (ram.length() > 0)
+                sql += " ram = \'" + ram + "\'" + " AND ";
+            if (videocard.length() > 0)
+                sql += " videocard = \'" + videocard + "\'" + " AND ";
+            if (windows.length() > 0)
+                sql += " windows = \'" + windows + "\'" + " AND ";
+            if (cpu_frequency.length() > 0)
+                sql += " cpu_frequency = '" + cpu_frequency + "'"+" AND ";
+            sql = sql.substring(0, sql.lastIndexOf("AND"));
+
+            sql += " ;";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            return res;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
 }
